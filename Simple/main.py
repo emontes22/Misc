@@ -8,8 +8,8 @@ pygame.display.set_caption('First Game')    #Title of game
 clock = pygame.time.Clock()
 font = pygame.font.Font('Simple/font/DisposableDroidBB.ttf', 50)
 
-sky = pygame.image.load('Simple/images/Sky.jpg').convert_alpha()
-ground = pygame.image.load('Simple/images/Ground.jpg').convert_alpha()
+sky = pygame.image.load('Simple/images/Sky.png').convert_alpha()
+ground = pygame.image.load('Simple/images/Ground.png').convert_alpha()
 text = font.render('My Game', False, 'Black')
 
 enemy = pygame.image.load('Simple/images/enemy/snail1.png').convert_alpha()
@@ -23,6 +23,9 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        
+        # if event.type == pygame.MOUSEMOTION:
+        #     event.pos
     
     screen.blit(sky, (0, 0))
     screen.blit(ground, (0, 300))
@@ -33,6 +36,14 @@ while True:
         enemy_rect.left = 800
     screen.blit(enemy, enemy_rect)
     screen.blit(player, player_rect)
+
+    # if player_rect.colliderect(enemy_rect):
+        # print("collision")
+    
+    # mouse_pos = pygame.mouse.get_pos()
+    # if (player_rect.collidepoint((mouse_pos))):
+    #     pygame.mouse.get_pressed()
+
 
     pygame.display.update()
     clock.tick(60)
