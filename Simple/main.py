@@ -7,6 +7,7 @@ def displayScore():
     score = font.render(f'Score: {current_time}', False, (64,64,64))
     score_rect = score.get_rect(center = (400, 50))
     screen.blit(score, score_rect)
+    return current_time
 
 pygame.init()   #Starts pygame
 screen = pygame.display.set_mode((800, 400))
@@ -15,6 +16,7 @@ clock = pygame.time.Clock()
 font = pygame.font.Font('Simple/font/DisposableDroidBB.ttf', 50)
 game_active = True
 start_time = 0
+score = 0
 
 sky = pygame.image.load('Simple/images/Sky.png').convert_alpha()
 ground = pygame.image.load('Simple/images/Ground.png').convert_alpha()
@@ -28,6 +30,17 @@ enemy_rect = enemy.get_rect(bottomright = (600, 300))
 player = pygame.image.load('Simple/images/player/player_walk_1.png').convert_alpha()
 player_rect = player.get_rect(midbottom = (80, 300))
 player_grav = 0
+
+#Intro
+player_stand = pygame.image.load('Simple/images/player/player_stand.png').convert_alpha()
+player_stand = pygame.transform.rotozoom(player_stand, 0, 2)
+player_stand_rect = player_stand.get_rect(center = (400, 200))
+
+game_over = font.render('Game Over', False, (111, 196, 169))
+game_over_rect = game_over.get_rect(center = (400, 80))
+
+game_message = font.render('Press space to Retry', False, (111, 196, 169))
+game_message_rect = game_message.get_rect(center = (400, 320))
 
 while True:
     for event in pygame.event.get():
@@ -54,9 +67,9 @@ while True:
         screen.blit(ground, (0, 300))
         # pygame.draw.rect(screen, '#c0e8ec', score_rect)
         # screen.blit(score, score_rect)
-        displayScore()
+        score = displayScore()
 
-        enemy_rect.x -= 3
+        enemy_rect.x -= 4
         if enemy_rect.right <= 0:
             enemy_rect.left = 800
         screen.blit(enemy, enemy_rect)
@@ -71,8 +84,20 @@ while True:
         #Collision
         if enemy_rect.colliderect(player_rect):
             game_active = False
-    else:
-        screen.fill('Yellow')
+    else: #Game Over
+        screen.fill((94, 129, 162))
+        screen.blit(player_stand, player_stand_rect)
+
+        score_message = font.render(f'Your score: {score}', False, (111, 196, 169))
+        score_message_rect = score_message.get_rect(center = (400, 330))
+        screen.blit(game_over, game_over_rect)
+
+        if score == 0:
+            screen.blit(game_message, game_message_rect)
+        else:
+            screen.blit(score_message, score_message_rect)
+
+
 
     pygame.display.update()
     clock.tick(60)
