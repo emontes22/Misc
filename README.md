@@ -1,3 +1,3 @@
-# Pygame Lerning
+# Python Projects
 
-The objective is to learn the basics of pygame by creating a simple platformer game applying the fundamentals of pygame including animations, events, audio, sprites, player and enemies movement.
+The idea is to create simple and fast python programs to enforced the knowledge of the language and to create fun and entertaining scripts.
